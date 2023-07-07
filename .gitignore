@@ -1,0 +1,13 @@
+.ssh/
+node_modules/
+.ssh/gary-key-putty.ppk
+*.pub
+frontend/node_modules/.package-lock.json
+frontend/package-lock.json
+frontend/package.json
+frontend/node_modules/.package-lock.json
+frontend/package-lock.json
+frontend/package.json
+frontend/node_modules/.package-lock.json
+frontend/package-lock.json
+frontend/package.json

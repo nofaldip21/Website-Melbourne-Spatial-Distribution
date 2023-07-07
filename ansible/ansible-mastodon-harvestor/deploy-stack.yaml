@@ -1,0 +1,9 @@
+---
+ - hosts: 172.26.132.72 #only deploy to the manager node
+   tasks:
+    - name: Deploy stack from a compose file
+      docker_stack:
+        state: present
+        name: "{{ service_name }}"
+        compose:
+        - /home/ubuntu/repos/mastodon-harvestor/mastodon_harverster/docker-compose.yaml

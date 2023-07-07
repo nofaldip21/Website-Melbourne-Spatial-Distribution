@@ -1,0 +1,8 @@
+---
+ - hosts: 172.26.132.72
+   tasks:
+   - name: Clone Entire Repo
+     ansible.builtin.git:
+       repo: git@github.com:GWFJ/comp90024-a2-team-44.git
+       dest: /home/ubuntu/repos/all
+       accept_hostkey: yes

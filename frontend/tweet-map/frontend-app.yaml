@@ -1,0 +1,7 @@
+version: '3.9'
+
+services:
+  front-end-app:
+    image: frontend-docker-vuejs
+    ports:
+      - "8020:80"

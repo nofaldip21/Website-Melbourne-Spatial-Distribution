@@ -1,0 +1,244 @@
+<!DOCTYPE HTML>
+<!--
+	Dimension by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<link rel="icon" href="{{ url_for('static', filename='images/melb.png') }}">
+		<title>Web App Exploratory</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='assets/css/main.css') }}">
+		<noscript><link rel="stylesheet" href="{{ url_for('static', filename='assets/css/noscript.css') }}"/></noscript>
+		<style>
+			.button-row {
+			  display: flex;
+			  justify-content: space-between;
+			}
+			.button-row {
+			  display: flex;
+			  justify-content: space-between;
+			}
+			.hidden-dev{
+				display: none;
+			}
+			button.active {
+			background-color: white;
+			color: black !important;
+			border: 2px solid black;
+			}
+			button:hover{
+			background-color: white;
+			color: black !important;
+			border: 2px solid black;
+			}
+		  </style>
+		  <script>
+			window.addEventListener('DOMContentLoaded', function() {
+			var buttons = document.querySelectorAll('.button-row button');
+			var iframe = document.getElementById('map-iframe');
+
+			buttons.forEach(function(button) {
+				button.addEventListener('click', function() {
+				// Remove active class from all buttons
+				buttons.forEach(function(btn) {
+					btn.classList.remove('active');
+				});
+
+				// Add active class to clicked button
+				button.classList.add('active');
+
+				// Change src of iframe
+				if (button.classList.contains('button1')) {
+					iframe.src = "{{ url_for('static', filename='map.html') }}";
+				} else if (button.classList.contains('button2')) {
+					iframe.src = "{{ url_for('static', filename='map_lang.html') }}";
+				} else if (button.classList.contains('button3')) {
+					iframe.src = "{{ url_for('static', filename='map_sport.html') }}";
+				}
+				});
+			});
+			});
+
+
+			window.addEventListener('DOMContentLoaded', function() {
+			var buttons = document.querySelectorAll('.button-row-analysis button');
+			var iframe = document.getElementById('analysis-iframe');
+			var result = document.querySelectorAll('.analysis-result div');
+
+			buttons.forEach(function(button) {
+				button.addEventListener('click', function() {
+				// Remove active class from all buttons
+				buttons.forEach(function(btn) {
+					btn.classList.remove('active');
+				});
+				
+				result.forEach(function(dv){
+					if(!dv.classList.contains('hidden-dev')){
+						dv.classList.add('hidden-dev');
+					}
+				})
+				// Add active class to clicked button
+				button.classList.add('active');
+
+				// Change src of iframe
+				if (button.classList.contains('analysis-button-1')) {
+					iframe.src = "{{ url_for('static', filename='mastodon_timeseries.html') }}";
+					document.querySelector('.result-analysis-1').classList.remove('hidden-dev');
+				} else if (button.classList.contains('analysis-button-2')) {
+					iframe.src = "{{ url_for('static', filename='mastodon_sport_hastag.html') }}";
+					document.querySelector('.result-analysis-2').classList.remove('hidden-dev');
+				} else if (button.classList.contains('analysis-button-3')) {
+					iframe.src = "{{ url_for('static', filename='mastodon_language.html') }}";
+					document.querySelector('.result-analysis-3').classList.remove('hidden-dev');
+				} 
+				});
+			});
+			});
+		  </script>
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<div class="logo">
+							<span class="icon fa-gem"></span>
+						</div>
+						<div class="content">
+							<div class="inner">
+								<h1>Exploratory Data Analysis</h1>
+								<p>Interactive Web Application to compare between official data regarding<br />
+									household income, language at home, and sports or fitness activity and what's been talking about<br />
+									by incorporating Tweets dan Toots data.
+								</p>
+							</div>
+						</div>
+						<nav>
+							<ul>
+								<li><a href="#about">About</a></li>
+								<li><a href="#map">Map</a></li>
+								<li><a href="#analysis">Analysis</a></li>
+								<li><a href="#contact">Contact</a></li>
+								<!--<li><a href="#elements">Elements</a></li>-->
+							</ul>
+						</nav>
+					</header>
+
+				<!-- Main -->
+					<div id="main">
+
+						<!-- Intro -->
+							<article id="about">
+								<h2 class="major">About</h2>
+								<p>This Web App Exploratory Data Analysis is powered by <a href="https://dashboard.cloud.unimelb.edu.au/">Melbourne Research Cloud</a>. 
+									CouchDB is used as database management. Docker Swarm is installed accross virtual machines to handle frontend, backend app and also the Mastodon harvester.
+									To check our visualization, please check out <a href="#map">Map</a> and <a href="#analysis">Analysis</a>.</p>
+							</article>
+
+						<!-- Map -->
+							<article id="map">
+								<h2 class="major">Map</h2>
+								<div class="button-row" style="margin-bottom: 10px;">
+									<button class="active button1" type="button">Rent Related Map</button>
+									<button class="non-active button2" type="button">Non Eng Language Map</button>
+									<button class="non-active button3" type="button">Sport Facility Map</button>
+								  </div>
+								<script>
+									window.addEventListener('load', function() {
+									  var iframe = document.getElementById('map-iframe');
+									  iframe.src = "{{ url_for('static', filename='map.html') }}";
+									});
+									</script>
+								<iframe id="map-iframe" width="100%" height="600"></iframe>
+								<p>This page visualizes the SUDO and Twitter data as map or area. Area with blue border contains Twitter data that was made in that area. We have three main scenarios which are:
+									<ul>
+										<li>Household income compared to number of tweets talking about rental prices. The darker the area means the higher percentage of low household income.</li>
+										<li>Language usage at home compared to language usage at social media platform. The darker the area means the higher number of people who do not speak English as first language.</li>
+										<li>Number of sports facilities in an area compared to tweets talking about it. The darker the area means the higher number of sports facilities within that area.</li>
+									</ul>
+								</p>
+							</article>
+
+						<!-- Analysis -->
+							<article id="analysis">
+								<h2 class="major">Analysis</h2>
+								<div class="button-row-analysis" style="margin-bottom: 10px;">
+									<button class="active analysis-button-1" type="button">Time Series Analysis</button>
+									<button class="non-active analysis-button-2" type="button">Top 10 Hashtag Sport & Health</button>
+									<button class="non-active analysis-button-3" type="button">Top 10 Non English Toots</button>
+								  </div>								
+								<script>
+									window.addEventListener('load', function() {
+									  var iframe = document.getElementById('analysis-iframe');
+									  iframe.src = "{{ url_for('static', filename='mastodon_timeseries.html') }}";
+									});
+									</script>
+								<iframe id="analysis-iframe" width="100%" height="600"></iframe>
+								<div class = "analysis-result">
+								<div class = "result-analysis-1">
+								<p>This page visualizes trend analysis regarding Mastodon Toots. It allows users to better understand how many Mastodon Toots created over time.</p>
+								</div>
+								<div class = "result-analysis-2 hidden-dev">
+								<p>This page visualizes Top 10 Hashtag that related to sports activity from Mastodon Toots.</p>
+								</div>
+								<div class = "result-analysis-3 hidden-dev">
+								<p>From the chart, we can see that german is the most non-english language used in mastedon followed by franch and chinese. This data can be baseline to understand what is other language beside English that australia people ussulally use.</p>
+								</div>
+								</div>
+							</article>
+
+						<!-- Contact -->
+							<article id="contact">
+								<h2 class="major">Contact</h2>
+								<form method="post" action="#">
+									<div class="fields">
+										<div class="field half">
+											<label for="name">Name</label>
+											<input type="text" name="name" id="name" />
+										</div>
+										<div class="field half">
+											<label for="email">Email</label>
+											<input type="text" name="email" id="email" />
+										</div>
+										<div class="field">
+											<label for="message">Message</label>
+											<textarea name="message" id="message" rows="4"></textarea>
+										</div>
+									</div>
+									<ul class="actions">
+										<li><input type="submit" value="Send Message" class="primary" /></li>
+										<li><input type="reset" value="Reset" /></li>
+									</ul>
+								</form>
+								<ul class="icons">
+									<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+									<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
+									<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+									<li><a href="#" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+								</ul>
+							</article>
+					</div>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<p class="copyright">&copy; Team 44 CCC. Design by: <a href="https://html5up.net">HTML5 UP</a>.</p>
+					</footer>
+
+			</div>
+
+		<!-- BG -->
+			<div id="bg"></div>
+
+		<!-- Scripts -->
+      <script src="{{ url_for('static', filename='assets/js/jquery.min.js') }}"></script>
+      <script src="{{ url_for('static', filename='assets/js/browser.min.js') }}"></script>
+      <script src="{{ url_for('static', filename='assets/js/breakpoints.min.js') }}"></script>
+      <script src="{{ url_for('static', filename='assets/js/util.js') }}"></script>
+      <script src="{{ url_for('static', filename='assets/js/main.js') }}"></script>
+	</body>
+</html>

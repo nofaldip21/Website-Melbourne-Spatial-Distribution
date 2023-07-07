@@ -1,0 +1,18 @@
+FROM python:3.11
+
+ADD main.py .
+ADD scenario2.py .
+ADD scenario3.py .
+ADD static static
+ADD templates templates
+# RUN pip install Mastodon.py
+
+RUN pip install couchdb
+RUN pip install folium
+RUN pip install flask
+RUN pip install pandas
+RUN pip install geopandas
+RUN pip install plotly
+RUN pip install matplotlib
+
+CMD ["python","main.py" ] 

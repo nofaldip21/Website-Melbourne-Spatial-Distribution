@@ -1,0 +1,29 @@
+---
+ - hosts: all
+   tasks:
+   - name: Clone repo
+     ansible.builtin.git:
+       repo: git@github.com:GWFJ/comp90024-a2-team-44.git
+       dest: /home/ubuntu/repos/all
+       accept_hostkey: yes
+
+   - name: Docker compose build
+     ansible.builtin.shell:
+        chdir: /home/ubuntu/repos/all/flask
+        cmd: docker-compose build 
+
+   - name: Docker compose push image to private registry (running as a service)
+     ansible.builtin.shell:
+        chdir: /home/ubuntu/repos/all/flask
+        cmd: docker-compose push
+
+   - name: Docker deploy front end
+     docker_stack:
+       state: present
+       name: frontend
+       compose:
+       - /home/ubuntu/repos/all/flask/docker-compose.yaml
+
+   - name: Scale front-end
+     ansible.builtin.shell:
+       cmd: docker service scale frontend_front-end-app=3

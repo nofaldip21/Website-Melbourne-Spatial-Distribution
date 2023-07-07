@@ -1,0 +1,8 @@
+---
+ - hosts: all
+   tasks:
+   - name: Clone Mastodon Harvestor
+     ansible.builtin.git:
+       repo: git@github.com:GWFJ/comp90024-a2-team-44.git
+       dest: /home/ubuntu/repos/mastodon-harvestor
+       accept_hostkey: yes

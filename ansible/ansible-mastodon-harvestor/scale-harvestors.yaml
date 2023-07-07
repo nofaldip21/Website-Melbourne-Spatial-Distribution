@@ -1,0 +1,16 @@
+---
+ - hosts: 172.26.132.72 #only deploy to the manager node
+   tasks:
+    - name: Scale service 1
+      ansible.builtin.shell:
+        cmd: docker service scale svc_mastodonau_harvestor=3
+      ignore_errors: true
+    - name: Scale service 2
+      ansible.builtin.shell:
+        cmd: docker service scale svc_aussocial_harvestor=3
+      ignore_errors: true
+    - name: Scale service 3
+      ansible.builtin.shell:
+        cmd: docker service scale svc_tictocsocial_harvestor=3
+      ignore_errors: true
+

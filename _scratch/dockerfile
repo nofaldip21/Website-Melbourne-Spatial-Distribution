@@ -1,0 +1,12 @@
+FROM python:3.11
+
+ADD mastodon_harvestor.py .
+ADD mastodon mastodon
+# RUN pip install Mastodon.py
+RUN pip install couchdb
+RUN pip install requests
+RUN pip install python-dateutil
+RUN pip install decorator
+RUN pip install flask
+
+CMD ["sh", "-c", "python mastodon_harvestor.py $CLIENT_ID $CLIENT_SECRET $ACCESS_TOKEN ${API_BASE_URL} ${DB} ${PORT}" ] 

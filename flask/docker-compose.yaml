@@ -1,0 +1,8 @@
+version: '3.9'
+
+services:
+  front-end-app:
+    image: 127.0.0.1:9000/webapp_img #for private registry in order to share image among nodes
+    build: .
+    ports:
+      - "8020:5010"

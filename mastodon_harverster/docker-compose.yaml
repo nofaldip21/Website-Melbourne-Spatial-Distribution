@@ -1,0 +1,16 @@
+version: '3.9'
+
+services:
+  harvestor:
+    image: 127.0.0.1:9000/mastodon-harvestor #for private registry in order to share image among nodes
+    build: .
+    # image: python-mastodon-harvest
+    #either build an image or use a readily built docker image
+    ports:
+      - '5003:5003'
+    environment:
+     - CLIENT_ID=osLK1h6s6H6F27q1-AY0PySG4xcZDDDU6RthC1hO7Bk
+     - CLIENT_SECRET=_7vYfTKWWPr60aDoJR1zRa9VgE9-IKRAsbVgrn2kfLA
+     - ACCESS_TOKEN=qhNgWTI5WfOPIh69pN0eoodVfWofCmkWS7E9FXKUDhw
+     - API_BASE_URL=https://mastodon.au
+     - DB=mast_mastodonau

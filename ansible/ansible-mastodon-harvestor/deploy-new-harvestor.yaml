@@ -1,0 +1,9 @@
+---
+ - hosts: 172.26.132.72 #only deploy to the manager node
+   tasks:
+   - name: Docker deploy harvestor
+     docker_stack:
+       state: present
+       name: "{{ service_name }}"
+       compose:
+       - /home/ubuntu/repos/all/mastodon_harverster/{{docker_compose_file}}

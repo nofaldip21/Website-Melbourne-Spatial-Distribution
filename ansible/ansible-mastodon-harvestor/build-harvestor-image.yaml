@@ -1,0 +1,41 @@
+---
+ - hosts: 172.26.132.72 #only deploy to the manager node
+   tasks:
+   - name: Clone Assignment Repo
+     ansible.builtin.git:
+       repo: git@github.com:GWFJ/comp90024-a2-team-44.git
+       dest: /home/ubuntu/repos/all
+       accept_hostkey: yes
+
+#Harvestor 1
+   - name: Docker compose build harvestor 1
+     ansible.builtin.shell:
+        chdir: /home/ubuntu/repos/all/mastodon_harverster
+        cmd: docker-compose -f docker-compose-harvestor1.yaml build 
+
+   - name: Docker compose push image to private registry (running as a service)
+     ansible.builtin.shell:
+        chdir: /home/ubuntu/repos/all/mastodon_harverster
+        cmd: docker-compose -f docker-compose-harvestor1.yaml push 
+
+#Harvestor 2
+   - name: Docker compose build harvestor 2
+     ansible.builtin.shell:
+        chdir: /home/ubuntu/repos/all/mastodon_harverster
+        cmd: docker-compose -f docker-compose-harvestor2.yaml build 
+
+   - name: Docker compose push image to private registry (running as a service)
+     ansible.builtin.shell:
+        chdir: /home/ubuntu/repos/all/mastodon_harverster
+        cmd: docker-compose -f docker-compose-harvestor2.yaml push 
+
+#Harvestor 3
+   - name: Docker compose build harvestor 3
+     ansible.builtin.shell:
+        chdir: /home/ubuntu/repos/all/mastodon_harverster
+        cmd: docker-compose -f docker-compose-harvestor3.yaml build 
+
+   - name: Docker compose push image to private registry (running as a service)
+     ansible.builtin.shell:
+        chdir: /home/ubuntu/repos/all/mastodon_harverster
+        cmd: docker-compose -f docker-compose-harvestor3.yaml push 

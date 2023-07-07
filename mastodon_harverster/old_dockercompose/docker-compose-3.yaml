@@ -1,0 +1,17 @@
+version: '3.9'
+
+services:
+  harvestor:
+    # image: 127.0.0.1:9000/mastodon-harvestor #for private registry in order to share image among nodes
+    build: .
+    # image: python-mastodon-harvest
+    #either build an image or use a readily built docker image
+    ports:
+      - '5005:5005'
+    environment:
+     - CLIENT_ID=uCRfo-TiFwikxRtEPL2Bly500XdlBed49bi4s3ZgulU
+     - CLIENT_SECRET=cqBpQ-tKo1MqO-A83dXy6tiiqLOaJfZN1OjR2fafa-8
+     - ACCESS_TOKEN=qNaoUQoKu5gsuvz_4SRhjWIJlwtJa6AQzW51hTt1vUc
+     - API_BASE_URL=https://tictoc.social
+     - DB=mast_tictocsocial
+     - PORT=5005

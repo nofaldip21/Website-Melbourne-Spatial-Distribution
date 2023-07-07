@@ -1,0 +1,15 @@
+---
+ - hosts: 172.26.132.72 #only deploy to the manager node
+   tasks:
+   - name: Remove service 1
+     ansible.builtin.shell:
+        cmd: docker service rm svc_mastodonau_harvestor
+     ignore_errors: true
+   - name: Remove service 2
+     ansible.builtin.shell:
+        cmd: docker service rm svc_aussocial_harvestor
+     ignore_errors: true
+   - name: Remove service 3
+     ansible.builtin.shell:
+        cmd: docker service rm svc_tictocsocial_harvestor
+     ignore_errors: true
